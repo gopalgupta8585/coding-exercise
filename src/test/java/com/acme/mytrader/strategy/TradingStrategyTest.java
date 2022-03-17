@@ -12,14 +12,9 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
-import org.mockito.Spy;
-
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.anyDouble;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.acme.mytrader.price.PriceListener;
-import com.acme.mytrader.price.PriceListenerImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TradingStrategyTest {
