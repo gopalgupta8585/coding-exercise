@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * <pre>
@@ -16,14 +17,21 @@ import lombok.Getter;
  * that when they breach a trigger level orders can be executed automatically
  * </pre>
  */
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class TradingStrategy {
 	
-	public static PriceListener listener = new PriceListenerImpl();
+	
+	public PriceListener listener;
 	public static final double PRICE_THRESHOLD = 55.0;
 	
-	public static void buyStock(ArrayList<Stock> list) {
+	public void buyStock(ArrayList<Stock> list) {
+		
+		listener = new PriceListenerImpl();
+		if(list.isEmpty()) {
+			throw new NullPointerException("There is no data available for changes in stock exchange rate");
+		}
 		
 		list.stream()
 			.filter(s -> s.getPrice() < PRICE_THRESHOLD && s.getSecurity().equals("IBM"))
@@ -34,7 +42,7 @@ public class TradingStrategy {
 	
 	public static void main(String[] args) {
 		
-		
+		TradingStrategy tradingStrategy = new TradingStrategy();
 		ArrayList<Stock> stream = new ArrayList<>();
 		stream.add(Stock.builder().security("IBM").price(100.00).thresholdPrice(PRICE_THRESHOLD).build());
 		stream.add(Stock.builder().security("IBM").price(80.00).thresholdPrice(PRICE_THRESHOLD).build());
@@ -51,7 +59,7 @@ public class TradingStrategy {
 		stream.add(Stock.builder().security("IBM").price(54.50).thresholdPrice(PRICE_THRESHOLD).build());
 		
 		
-		buyStock(stream);
+		tradingStrategy.buyStock(stream);
 		
 	}
 }
