@@ -20,8 +20,7 @@ public class PriceListenerImpl implements PriceListener {
 	@Override
 	public void priceUpdate(String security, double price) {
 
-		System.out.println("PriceListener: price is reduced below threshold level:");
-		System.out.println("Stock Bought ==>" + security + " stock-" + price + " per each-" + quantityToPurchase+" lots purchased");
+		System.out.print("Stock Bought ==>" + security + " stock-" + price + " per each-" + quantityToPurchase+" lots purchased");
 		//TODO Would be provided by thrid party service and implementation is out of scope.
 		//executionService.buy(security, price, quantityToPurchase);
 	}
